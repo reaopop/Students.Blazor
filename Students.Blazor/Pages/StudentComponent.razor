@@ -41,8 +41,8 @@
     #region Events
     protected override void OnInitialized()
     {
-        // StudentList = stdVM.GetStudentAsync().Result;
-        StudentList = new ObservableCollection<Student>() { new Student() { FirstName = "Mohamed" } };
+        StudentList = stdVM.GetStudentAsync().Result;
+        //StudentList = new ObservableCollection<Student>() { new Student() { FirstName = "Mohamed" } };
         base.OnInitialized();
     }
     #endregion
