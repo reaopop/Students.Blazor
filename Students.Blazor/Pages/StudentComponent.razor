@@ -1,0 +1,60 @@
+﻿@page "/"
+
+
+@inject StudentsVM stdVM
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Class</th>
+            <th>Age</th>
+            <th>City</th>
+            <th>Genderd</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in StudentList)
+        {
+            <tr>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.Class</td>
+                <td>@item.Age</td>
+                <td>@item.City</td>
+                <td>@item.Genderd</td>
+                <td class="btn btn-primary" @onclick="()=> Edit(item)">Edit</td>
+                <td class="btn btn-danger" @onclick="()=> Delete(item)">Delete</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    #region Properties
+    public ObservableCollection<Student> StudentList { get; set; }
+    #endregion
+
+    #region Events
+    protected override void OnInitialized()
+    {
+        // StudentList = stdVM.GetStudentAsync().Result;
+        StudentList = new ObservableCollection<Student>() { new Student() { FirstName = "Mohamed" } };
+        base.OnInitialized();
+    }
+    #endregion
+
+    #region Helper
+    async Task Edit(Student std)
+    {
+        await stdVM.UpdateStudentAsync(std);
+    }
+    async Task Delete(Student std)
+    {
+        await stdVM.DeleteStudentAsync(std.Id);
+    }
+    #endregion
+}
